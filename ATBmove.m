@@ -16,7 +16,13 @@ function ATBmove (mode, angolo, distance, servoDX, servoSX)
 %Calcolo tempo e velocità
     
     for i=1:1:rig
-        
+        %----GENERAZIONE INDICATORE TRACKING------
+        if(mod(mode(rig),2)==1)
+            modDirAttuale=angolo(rig);
+        else 
+            modDirAttuale=-angolo(rig);
+        end
+        %-----------------------------------------
         distance_tot(i)=distance(i)+2*pi*asse_ruote*abs(angolo(i))/360;
         time(i)=distance_tot(i)/velocityMax;
         velocityReal(i)=2*pi*raggio_curva_piccola*angolo(i)/360/time(i);
@@ -144,7 +150,11 @@ function ATBmove (mode, angolo, distance, servoDX, servoSX)
         end
     
     end
-    
+    %% Tracking posizione robot
+    global dirAttuale;
+    global disAttuale;
+    dirAttuale=dirAttuale+sum(angolo);
+    disAttuale=disAttuale+modDirAttuale;
 end
 
 
