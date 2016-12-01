@@ -1,4 +1,4 @@
-function ATBmove (mode, angolo, distance, servoDX, servoSX)
+function ATBmove (mode, angolo, distance,dirUltimo,disUltimo,servoDX,servoSX)
 
 %Creazione array
     
@@ -12,7 +12,6 @@ function ATBmove (mode, angolo, distance, servoDX, servoSX)
     velocityMax=2*pi*raggio_ruote;
     velocityDX=zeros(1, rig);
     velocitySX=zeros(1, rig);
-    
 %Calcolo tempo e velocità
     
     for i=1:1:rig
@@ -22,6 +21,10 @@ function ATBmove (mode, angolo, distance, servoDX, servoSX)
         else 
             modDirAttuale=-angolo(rig);
         end
+        dirPenultimo = dirUltimo;
+        dirUltimo = angolo(rig);
+        disPenultimo = disUltimo;
+        disUltimo = distance(rig);
         %-----------------------------------------
         distance_tot(i)=distance(i)+2*pi*asse_ruote*abs(angolo(i))/360;
         time(i)=distance_tot(i)/velocityMax;
@@ -153,8 +156,8 @@ function ATBmove (mode, angolo, distance, servoDX, servoSX)
     %% Tracking posizione robot
     global dirAttuale;
     global disAttuale;
-    dirAttuale=dirAttuale+sum(angolo);
-    disAttuale=disAttuale+modDirAttuale;
+    disAttuale = sqrt(disUltimo^2+disPenultimo^2-disUltimo*disPenultimo*cos(180-dirUltimo));
+    dirAttuale = asind(disUltimo*sin(180-dirUltimo)/disAttuale)-90+dirPenultimo;
 end
 
 

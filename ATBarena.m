@@ -5,6 +5,8 @@ close;
 %input:servoCorona
 %NOTE: aggiungere eventualmente filtro rumore a misurazioni
 %% DEFINIZIONE VARIABILI CONDIVISE
+global disAttuale;
+global dirAttuale;
 posSensoriCorona=90;
 altRicercaObj=20; %altezza sensori dal terreno in posizione di ricerca ogetti in mm +++definisci+++
 altRicercaZR=60+0; %altezza sensori zona di recupero (60 mm + correzione angolo emissione)+++definisci+++
@@ -96,8 +98,8 @@ end
 modoEA=1;angoloEA=0;distanzaEA=20;%distanza che deve compiere il robot
 %per entrare completamente nell'arena (da definire, in cm) +++definisci+++
 %ATBmove(modoEA,angoloEA,distanzaEA,servoADX,servoASX,servoPDX,servoPSX);+++decommentare+++
-%disAttuale=0;+++decommentare+++
-%dirAttuale=90;+++decommentare+++
+disAttuale=0
+dirAttuale=90;
 %% RACCOLTA OGETTI 1
 modoRO=zeros(1,numOgetti);
 angoloRO=zeros(1,numOgetti);
