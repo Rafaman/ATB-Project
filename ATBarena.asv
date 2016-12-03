@@ -96,8 +96,8 @@ indZRCell=MisurazioniZR1.PixelIdxList;
         dirZR1 = mean(indZR1)*precAnalisiZR;
         %calcolo posizione assoluta ZR
         if(numZR1 == 1)
-            disAssZR = sqrt(disZR1^2+disAttuale^2-disZR1*disAttuale*cos(180-dirZR1));
-            dirAssZR = asind(disZR1*sin(180-dirZR1)/disAssZR)-90+disZR1;
+            disAssZR = sqrt(disZR1^2+disAttuale^2-disZR1*disAttuale*cos(180-dirZR2));
+            dirAssZR = asind(disZR1*sin(180-dirZR2)/disAssZR)-90+disZR1;
         end
     break;
     end
@@ -246,7 +246,7 @@ end
 %% DEPOSITO
 %generazione dati movimento
 disMovZR = sqrt(disAssZR^2+disAttuale^2-2*dirAssZR*disAttuale*cos(dirAttuale-dirAssZR));
-dirMoveZR = 180 - acosd((disMovZR^2+disAttuale^2-disAssZR^2)/(2*disMovZR*disAttuale));
+dirMoveZR = 180 - arcosd((disMovZR^2+disAttuale^2-disAssZR^2)/(2*disMovZR*disAttuale));
 if(dirAssZR>dirAttuale)
     modoZR = 1; %il robot svolta a destra
 else
@@ -261,11 +261,6 @@ distanzaZR = disMovZR - disApproccio;
 %per  il momento l'approccio è eseguito come un semplice avvicinamento
 %ATBmove(1,0,disApproccio,servoADX,servoASX,servoPDX,servoPSX);+++decommentare+++
 %deposito
-for depMod =1:4
-    %ATBFAbucketTurn(servoRotore);+++decommentare+++
-end
-%display segnale fine programma(da definire)
-%inserisci gui
-disp('fine');
+%/////display segnale fine programma
 %% DEBUG PLOT
 hold off;
